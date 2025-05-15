@@ -20,6 +20,14 @@ In this report, I focused on comparing two machine learning models:
 - and i'm using dataset inot the folder of "Data"
 - finally, my code running result intot the folder of "Process_Report"
 
+#### Referecnce as what I'm used
+- https://www.kaggle.com/c/tmdb-box-office-prediction/data
+- https://developer.imdb.com/non-commercial-datasets/
+- https://www.the-numbers.com/custom-search
+- https://github.com/sundeepblue/movie_rating_prediction
+- https://github.com/jingkunzler211/IMDB_prediction
+- https://medium.com/%40jingkunzler211/choosing-the-best-regression-model-imdb-movie-rating-prediction-3298fb11b6d
+- etc. 
 ---
 
 
@@ -27,4 +35,5 @@ In this report, I focused on comparing two machine learning models:
 
 - 1-page-proposal-group5.pdf 
 - mid_quarter_report.pdf
+
 
