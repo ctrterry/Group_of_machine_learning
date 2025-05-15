@@ -1,0 +1,6 @@
+Random Forest Evaluation Report
+Test set size: 1061
+MSE: 0.6186
+RMSE: 0.7865
+MAE: 0.5747
+R²: 0.4589
