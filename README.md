@@ -1,7 +1,7 @@
 # Group Study of Machine Learning
 
 ## Week 7  
-Notes: This is Week 6, and just a reminder — our group project is due in **2 weeks (June 2)**.
+Notes: This is Week 7, and just a reminder — our group project is due in **2 weeks (June 2)**.
 
 ### TODO List:
 
@@ -70,6 +70,22 @@ In this report, I focused on comparing two machine learning models:
 - etc. 
 ---
 
+## Week 5 
+
+Notes: This is Week 5, and just a reminder — our group project is due in **4 weeks (June 2)**.
+
+#### TODO List:
+- Since everyone has different experience with machine learning, and we want to maximize our enjoyment with this project, I have an idea.
+
+#### About week 6 group plan:
+- We can split the work as individually. Each person can find an interesting paper or favorit method (i.e ANN, CNN, etc.) and train your own model. Then, next week on Thursday (Or ~~ ?), we can compare with our models and share our final results.
+
+- About datasets:
+- Since I'm already uploaded the merge_datasets on GitHub, but you are still welcome to re-clean the data with your own.
+
+- Finally, good luck with all midterms.
+
+---
 
 ## Group Submition Paper
 
