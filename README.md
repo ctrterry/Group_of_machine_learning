@@ -14,10 +14,10 @@ In this report, I focused on comparing two machine learning models:
 
 ### Data Preparation and Model Comparison
 
-Some informations I have write a report "main_not_done.pdf"
-And summary file into the foler of "Jupyter"
-and some plot into the folder of "Important_plot"
-and i'm using dataset inot the folder of "Data"
-finally, my code running result intot the folder of "Process_Report"
+- Some informations I have write a report "main_not_done.pdf"
+- And summary file into the foler of "Jupyter"
+- and some plot into the folder of "Important_plot"
+- and i'm using dataset inot the folder of "Data"
+- finally, my code running result intot the folder of "Process_Report"
 
 ---
