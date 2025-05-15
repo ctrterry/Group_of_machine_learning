@@ -21,3 +21,10 @@ In this report, I focused on comparing two machine learning models:
 - finally, my code running result intot the folder of "Process_Report"
 
 ---
+
+
+## Group Submition Paper
+
+- 1-page-proposal-group5.pdf 
+- mid_quarter_report.pdf
+
