@@ -14,6 +14,11 @@ Ablation studies and Hyperparameter tuning
 Train Linear Regression model and add the data to the metrics for the other 2 models
 Provide a paragraph on EDA and data description for Facebook likes usages related to directors and actors.
 
+- Done
+- Conclusion, the IMDb_feature is linearly relationship with rating(Predict). Due to higher MSE and Lower R^2
+- Also, the Linear_regression is not good model to predict IMDB feature vs rating.
+- code was save into. terry_report/local_code/Liearly_regression.ipynb
+
 #### Yanming
 (ASAP) Update the dataset with one-hot encoding for genre and language
 Learn Flask
