@@ -1,5 +1,46 @@
 # Group Study of Machine Learning
 
+
+## Update Algorithem Report
+
+### Navroop Report
+DNN Improvement Model Performance:
+- R²: 0.4554
+- MSE: 0.9535
+- MAE: 0.7035
+
+### Terry:
+1, Linear-Regression (Basedline)
+- MSE: 0.840
+- R²: 0.229
+
+2, MLPRegressor (ANN) Evaluation Report
+Test set size: 1061
+- MSE: 0.9111
+- R²: 0.2030
+
+3, K-Folder + Random-Forest
+- Average MSE: 0.6832 ± 0.0476
+- Average R²: 0.4256 ± 0.0253
+
+4, Random Forest Evaluation Report
+Test set size: 1061
+- MSE: 0.6186
+- RMSE: 0.7865
+- MAE: 0.5747
+- R²: 0.4589
+
+### Yanming:
+
+1. Random Forest Regressor
+   - Mean Squared Error (MSE): 0.492
+   - R² Score: 0.483
+
+2. Linear Regression
+   - Mean Squared Error (MSE): 0.601
+   - R² Score: 0.368
+---
+
 ## Week 7  
 Notes: This is Week 7, and just a reminder — our group project is due in **2 weeks (June 2)**.
 
