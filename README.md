@@ -3,6 +3,8 @@
 
 ## Update Algorithem Report
 
+[My Reasech Analysis Pdf Report](./terry_report/main.pdf)
+
 ### Navroop Report
 DNN Improvement Model Performance:
 - R²: 0.4554
