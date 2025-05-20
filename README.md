@@ -1,9 +1,12 @@
 # Group Study of Machine Learning
 
-
-## Update Algorithem Report
+## Research Analysis Paper
 
 [My Reseach Analysis Paper IEEE Version](./terry_report/main.pdf)
+
+---
+
+## Update Algorithem Report
 
 ### Navroop Report
 DNN Improvement Model Performance:
