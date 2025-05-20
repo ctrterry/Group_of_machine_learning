@@ -3,7 +3,7 @@
 
 ## Update Algorithem Report
 
-[My Reasech Analysis Pdf Report](./terry_report/main.pdf)
+[My Reseach Analysis Paper IEEE Version](./terry_report/main.pdf)
 
 ### Navroop Report
 DNN Improvement Model Performance:
