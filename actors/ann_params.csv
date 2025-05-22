@@ -1,0 +1,7 @@
+Parameter,Value
+Neurons,32
+Activation,relu
+Learning Rate,0.01
+Momentum,0.9
+Batch Size,32
+Epochs,20

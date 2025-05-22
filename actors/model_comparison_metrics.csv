@@ -1,0 +1,4 @@
+Model,MSE,RMSE,R²
+Linear Regression(5-Fold),0.322,0.568,0.874
+ANN(3-Fold),0.275,0.524,0.892
+Random Forest(3-Fold),0.23,0.48,0.909

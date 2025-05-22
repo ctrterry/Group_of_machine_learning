@@ -1,0 +1,41 @@
+
+- **_Linear Regression (5-fold):_**
+  - **Performance**
+    - Average R² Score,0.874
+    - Average MSE,0.322
+    - Average RMSE,0.568
+  - **Coefficients**
+    - Genre Score,0.073
+    - Writer Quality,0.309
+    - Actor Score,0.149
+    - Budget (Millions USD),-0.016
+    - Director Quality,1.097
+  
+- **_Artificial Neural Network (3-fold):_**
+  - **Performance**
+    - Average MSE,0.275
+    - Average RMSE,0.524
+    - Average R^2, 0.874
+  - **Parameters**
+    - Neurons,32
+    - Activation,relu
+    - Learning Rate,0.01
+    - Momentum,0.9
+    - Batch Size,32
+    - Epochs,20
+
+- **_Random Forest (3-fold)_**
+  - **Performance**
+    - R² Score,0.909
+    - MSE,0.23
+    - RMSE,0.48
+  - **Feature importances**
+    - Genre Score,0.003
+    - Writer Quality,0.112
+    - Actor Score,0.022
+    - Budget (Millions USD),0.003
+    - Director Quality,0.86
+  - **Best parameter combination**
+    - n_estimators,100
+    - max_depth,10
+    - min_samples_split,5
