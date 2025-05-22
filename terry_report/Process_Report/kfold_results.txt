@@ -1,0 +1,56 @@
+K-fold Cross-validation Results
+=============================
+
+Number of folds: 5
+Total samples: 5305
+
+Features used:
+- popularity
+- runtime
+- release_year
+- release_month
+- num_critic_for_reviews
+- director_facebook_likes
+- actor_1_facebook_likes
+- actor_2_facebook_likes
+- actor_3_facebook_likes
+- num_user_for_reviews
+- movie_facebook_likes
+- budget_adjusted
+- Genre_first_values
+
+Fold Information:
+
+Fold 1:
+  Training set size: 4244
+  Validation set size: 1061
+  MSE: 0.6150
+  R²: 0.4620
+
+Fold 2:
+  Training set size: 4244
+  Validation set size: 1061
+  MSE: 0.6658
+  R²: 0.4464
+
+Fold 3:
+  Training set size: 4244
+  Validation set size: 1061
+  MSE: 0.6610
+  R²: 0.4211
+
+Fold 4:
+  Training set size: 4244
+  Validation set size: 1061
+  MSE: 0.7420
+  R²: 0.4014
+
+Fold 5:
+  Training set size: 4244
+  Validation set size: 1061
+  MSE: 0.7322
+  R²: 0.3968
+
+Overall Performance:
+Average MSE: 0.6832 ± 0.0476
+Average R²: 0.4256 ± 0.0253

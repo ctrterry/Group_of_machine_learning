@@ -1,0 +1,4 @@
+MLPRegressor (ANN) Evaluation Report
+Test set size: 1061
+MSE: 0.9111
+R²: 0.2030
