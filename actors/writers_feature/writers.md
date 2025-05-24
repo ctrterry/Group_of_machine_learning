@@ -86,3 +86,8 @@ LEFT JOIN movie_writers_temp mw ON m.tconst = mw.tconst
 LEFT JOIN writer_scores_temp ws ON mw.writer_id = ws.writer_id
 GROUP BY m.tconst, m.primaryTitle, m.startYear, m.averageRating, m.numVotes;
 ```
+
+## EXPORT WRITER QUALITY FOR FLASK
+```sql
+COPY genre_avg_ratings TO 'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/writer_quality.csv' (HEADER, DELIMITER ','); 
+```

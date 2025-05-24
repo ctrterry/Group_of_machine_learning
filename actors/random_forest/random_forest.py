@@ -4,9 +4,9 @@ from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
+import joblib
 
-
-df = pd.read_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/movies_features.csv')
+df = pd.read_csv('../movies_features.csv')
 
 # select features and target
 features = ['genre_score', 'movie_writer_quality', 'movie_actor_score', 'budget', 'director_quality']
@@ -24,9 +24,16 @@ feature_labels = {
 x = df[features]
 y = df[target]
 
+# split the data 80/20
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+
 # normalize features
 scaler = StandardScaler()
-x_scaled = scaler.fit_transform(x)
+x_train_scaled = scaler.fit_transform(x_train)
+x_test_scaled = scaler.transform(x_test)
+
+# save the scaler
+joblib.dump(scaler, 'rf_scaler.joblib')
 
 # initialize RandomForest model
 model = RandomForestRegressor(random_state=42)
@@ -38,10 +45,10 @@ model = RandomForestRegressor(random_state=42)
 param_grid = {'n_estimators': [100, 200],'max_depth': [10, 20, None],'min_samples_split': [2, 5]}
 
 # initialize grid search with 3 fold cross validation
-grid = GridSearchCV(estimator=model, param_grid=param_grid, cv=3, scoring='neg_mean_squared_error', n_jobs=1, verbose=1)
+grid = GridSearchCV(estimator=model, param_grid=param_grid, cv=3, scoring='neg_mean_squared_error', n_jobs=-1, verbose=1)
 
 # perform grid search
-grid_result = grid.fit(x_scaled, y)
+grid_result = grid.fit(x_train_scaled, y_train)
 
 #extract metrics and data about the best model
 best_model = grid_result.best_estimator_
@@ -49,10 +56,12 @@ best_params = grid_result.best_params_
 best_mse = -grid_result.best_score_
 best_rmse = np.sqrt(best_mse)
 
-# split the data 80/20
-x_train, X_test, y_train, y_test = train_test_split(x_scaled, y, test_size=0.2, random_state=42)
-best_model.fit(x_train, y_train)
-y_pred = best_model.predict(X_test)
+# best_model.fit(x_train_scaled, y_train)
+y_pred = best_model.predict(x_test_scaled)
+
+# save the model
+joblib.dump(best_model, 'rf_model.joblib')
+
 
 # calculate performance metrics
 r2 = r2_score(y_test, y_pred)
@@ -67,12 +76,12 @@ for param, value in best_params.items():
     print(f"{param}: {value}")
 
 print("\nBest Model Performance:")
-print(f"Average MSE: {best_mse:.3f}")
-print(f"Average RMSE: {best_rmse:.3f}\n")
+print(f"Cross Validation MSE: {best_mse:.3f}")
+print(f"Cross Validation RMSE: {best_rmse:.3f}\n")
 
-print(f"R² Score: {r2:.3f}")
-print(f"MSE: {mse:.3f}")
-print(f"RMSE: {rmse:.3f}\n")
+print(f"Test R² Score: {r2:.3f}")
+print(f"Test MSE: {mse:.3f}")
+print(f"Test RMSE: {rmse:.3f}\n")
 
 print("\nFeature Importances:")
 print(feature_importances.to_string(index=False))
@@ -95,9 +104,9 @@ ltx_results = results_df.to_latex(index=False,float_format="%.3f",caption="Rando
 ltx_importances = feature_importances_df.to_latex(index=False,float_format="%.3f",caption="Feature Importances for Random Forest Model Predicting IMDb Ratings (2020--2025)",label="tab:rf_feature_importances",column_format='lr',header=['Feature', 'Importance'],escape=True)
 
 # save latex tables for metrics and feature importances
-with open('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/rf_results.tex', 'w') as f:
+with open('/actors/random_forest/rf_results.tex', 'w') as f:
     f.write(ltx_results)
-with open('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/rf_feature_importances.tex', 'w') as f:
+with open('/actors/random_forest/rf_feature_importances.tex', 'w') as f:
     f.write(ltx_importances)
 
 # save model metrics, parameters and features importances into respective CSV files

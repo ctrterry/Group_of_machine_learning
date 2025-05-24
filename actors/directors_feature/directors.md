@@ -93,3 +93,8 @@ INNER JOIN director_scores_temp ds ON md.director_id = ds.director_id
 GROUP BY m.tconst, m.primaryTitle, m.startYear, m.averageRating, m.numVotes;
 ```
 - ![img_2.png](img_2.png)
+
+## EXPORT DIRECTOR SCORES FOR FLASK
+```sql
+COPY director_scores_temp TO 'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/director_quality.csv' (HEADER, DELIMITER ','); 
+```

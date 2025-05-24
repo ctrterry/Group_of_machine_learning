@@ -69,4 +69,8 @@ FROM movies m;
 ```
 - movie count: 318425, removed those with missing genres, or missing release year
 - Almost all movies miss main language, would require to identify the language based on the title, which can be problematic
-- 
+
+## EXPORT GENRE SCORES FOR FLASK
+```sql
+COPY writer_scores_temp TO 'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/writer_quality.csv' (HEADER, DELIMITER ','); 
+```

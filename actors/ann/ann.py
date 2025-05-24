@@ -12,7 +12,7 @@ from keras.src.callbacks import EarlyStopping
 
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
-df = pd.read_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/movies_features.csv')
+df = pd.read_csv('/actors/movies_features.csv')
 
 # select features and target
 features = ['genre_score', 'movie_writer_quality', 'movie_actor_score', 'budget', 'director_quality']
@@ -107,7 +107,7 @@ results_df['Value'] = results_df['Value'].round(3)
 # crreate a latex table with results of the ANN models
 latex_table = results_df.to_latex(index=False, float_format="%.3f", caption="ANN Model Performance for Predicting IMDb Ratings (2020--2025, 3-Fold Cross-Validation with Grid Search)", label="tab:ann_results", column_format='lr',header=['Metric', 'Value'], escape=True)
 
-with open('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/ann_results.tex', 'w') as f:
+with open('/actors/ann/ann_results.tex', 'w') as f:
     f.write(latex_table)
 
 # save results and params as CSV file for later use

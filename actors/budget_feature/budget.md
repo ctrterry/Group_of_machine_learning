@@ -358,3 +358,8 @@ FROM movies_with_genres m;
 ```sql
 COPY movies_with_genre_score TO 'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/movies_with_genre_score.csv' (HEADER, DELIMITER ','); 
 ```
+
+## EXPORT GENRE AVERAGE BUDGETS FOR FLASK
+```sql
+COPY genre_avg_budgets TO 'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/genre_budgets.csv' (HEADER, DELIMITER ','); 
+```

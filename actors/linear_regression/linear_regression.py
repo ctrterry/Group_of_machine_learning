@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error, r2_score
 
 
-df = pd.read_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/movies_features.csv')
+df = pd.read_csv('/actors/movies_features.csv')
 
 # select features and target
 features = ['genre_score', 'movie_writer_quality', 'movie_actor_score', 'budget', 'director_quality']
@@ -84,7 +84,7 @@ coeff_df = pd.DataFrame(coeffs)
 latex_table = coeff_df.to_latex(index=False,float_format="%.3f",caption="Linear Regression Coefficients for Predicting IMDb Ratings (2020--2025, 5-Fold Cross-Validation)",label="tab:linear_regression_coeffs",column_format='lr', header=['Feature', 'Coefficient'], escape=True )
 
 # save latex file
-with open('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/linear_regression_coeffs.tex', 'w') as f:
+with open('/actors/linear_regression/linear_regression_coeffs.tex', 'w') as f:
     f.write(latex_table)
 
 # create a dictionary with performance averages and standard deviations
