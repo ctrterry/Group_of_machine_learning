@@ -1,0 +1,7 @@
+Metric,Value
+Average R² Score,0.882
+Std R² Score,0.006
+Average MSE,0.306
+Std MSE,0.013
+Average RMSE,0.553
+Std RMSE,0.012
