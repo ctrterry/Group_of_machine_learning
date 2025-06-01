@@ -2,7 +2,7 @@
 
 # CREATE TABLES FOR RAW IMDB DATA
 ```
-.open C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/db/imdb.duckdb
+.open C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/Sasha_Directory/actors/db/imdb.duckdb
 ```
 
 ```
@@ -120,7 +120,7 @@ SELECT *
 FROM read_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/PROJECT/data/title.ratings.tsv', delim='\t', header=True, nullstr='\N', columns={'tconst': 'STRING', 'averageRating': 'FLOAT', 'numVotes': 'INTEGER'});
 ```
 
-## CREATE TABLE WITH MOVIES IN 2020-2005
+## CREATE TABLE WITH MOVIES IN 2020-2025
 ```sql
 CREATE TABLE recent_movies AS
 SELECT tb.tconst, tb.primaryTitle, tb.startYear, tr.averageRating, tr.numVotes
@@ -131,3 +131,75 @@ WHERE tb.titleType = 'movie'
   AND CAST(tb.startYear AS INTEGER) BETWEEN 2020 AND 2025;
   ```
 - 53005 movies
+
+# MOVIES FEATURES TABLE
+```sql
+CREATE TABLE movies_features_DELETE AS
+SELECT 
+    rm.tconst, rm.primaryTitle, rm.startYear, rm.averageRating, rm.numVotes,
+    gs.genre_score,
+    mw.movie_writer_quality,
+    ma.movie_actor_score,
+    mb.budget,
+    md.director_quality
+FROM recent_movies rm
+INNER JOIN movies_with_genre_score gs ON rm.tconst = gs.tconst
+INNER JOIN movies_with_movie_writer_quality mw ON rm.tconst = mw.tconst
+INNER JOIN movies_with_actor_scores ma ON rm.tconst = ma.tconst
+INNER JOIN movies_with_budgets mb ON rm.tconst = mb.tconst
+INNER JOIN movies_with_director_quality md ON rm.tconst = md.tconst;
+```
+## IMPUTATION
+```sql
+SELECT
+    COUNT(*) AS total_movies,
+    SUM(CASE WHEN md.tconst IS NOT NULL THEN 1 ELSE 0 END) AS matching_director_quality,
+    SUM(CASE WHEN md.tconst IS NULL THEN 1 ELSE 0 END) AS missing_director_quality
+FROM recent_movies rm
+LEFT JOIN movies_with_director_quality md ON rm.tconst = md.tconst;
+```
+
+missing genre 960, missing writer quality 940, missing movie actor score 9895, missing budget 940+24, missing director quality 793
+
+## EXPORT DROPPED MOVIES
+
+```sql
+COPY (
+    SELECT
+    rm.tconst, rm.primaryTitle, rm.startYear,
+    CASE WHEN gs.tconst IS NULL THEN 'Missing' ELSE 'Present' END AS genre_score_status,
+    CASE WHEN mw.tconst IS NULL THEN 'Missing' ELSE 'Present' END AS movie_writer_quality_status,
+    CASE WHEN ma.tconst IS NULL THEN 'Missing' ELSE 'Present' END AS movie_actor_score_status,
+    CASE WHEN mb.tconst IS NULL THEN 'Missing' ELSE 'Present' END AS budget_status,
+    CASE WHEN md.tconst IS NULL THEN 'Missing' ELSE 'Present' END AS director_quality_status
+FROM recent_movies rm
+LEFT JOIN movies_with_genre_score gs ON rm.tconst = gs.tconst
+LEFT JOIN movies_with_movie_writer_quality mw ON rm.tconst = mw.tconst
+LEFT JOIN movies_with_actor_scores ma ON rm.tconst = ma.tconst
+LEFT JOIN movies_with_budgets mb ON rm.tconst = mb.tconst
+LEFT JOIN movies_with_director_quality md ON rm.tconst = md.tconst
+WHERE gs.tconst IS NULL
+   OR mw.tconst IS NULL
+   OR ma.tconst IS NULL
+   OR mb.tconst IS NULL
+   OR md.tconst IS NULL;
+) TO 'dropped_movies.csv' WITH (HEADER 1, DELIMITER ',');
+```
+## NUMBER OF DATA POINTS WITH MISSING FEATURES
+```sql
+SELECT
+    SUM(CASE WHEN gs.tconst IS NULL THEN 1 ELSE 0 END) AS missing_genre_score,
+    SUM(CASE WHEN mw.tconst IS NULL THEN 1 ELSE 0 END) AS missing_movie_writer_quality,
+    SUM(CASE WHEN ma.tconst IS NULL THEN 1 ELSE 0 END) AS missing_movie_actor_score,
+    SUM(CASE WHEN mb.tconst IS NULL THEN 1 ELSE 0 END) AS missing_budget,
+    SUM(CASE WHEN md.tconst IS NULL THEN 1 ELSE 0 END) AS missing_director_quality,
+    SUM(CASE WHEN gs.tconst IS NULL OR mw.tconst IS NULL OR ma.tconst IS NULL OR mb.tconst IS NULL OR md.tconst IS NULL THEN 1 ELSE 0 END) AS missing_any,
+    SUM(CASE WHEN gs.tconst IS NULL AND ma.tconst IS NULL THEN 1 ELSE 0 END) AS missing_genre_and_actor,
+    SUM(CASE WHEN mb.tconst IS NULL AND gs.tconst IS NULL THEN 1 ELSE 0 END) AS missing_budget_and_genre
+FROM recent_movies rm
+LEFT JOIN movies_with_genre_score gs ON rm.tconst = gs.tconst
+LEFT JOIN movies_with_movie_writer_quality mw ON rm.tconst = mw.tconst
+LEFT JOIN movies_with_actor_scores ma ON rm.tconst = ma.tconst
+LEFT JOIN movies_with_budgets mb ON rm.tconst = mb.tconst
+LEFT JOIN movies_with_director_quality md ON rm.tconst = md.tconst;
+```

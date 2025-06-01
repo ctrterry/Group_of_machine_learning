@@ -98,3 +98,4 @@ GROUP BY m.tconst, m.primaryTitle, m.startYear, m.averageRating, m.numVotes;
 ```sql
 COPY director_scores_temp TO 'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/director_quality.csv' (HEADER, DELIMITER ','); 
 ```
+- movies with director quality 52212
