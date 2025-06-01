@@ -1,0 +1,6 @@
+Feature,Correlation
+Genre Score,0.367
+Movie Writer Quality,0.851
+Movie Actor Score,0.619
+ Budget (Millions USD),-0.123
+Director Quality,0.925

@@ -1,0 +1,7 @@
+Feature,Correlation
+Genre Score,0.374
+Movie Writer Quality,0.848
+Movie Actor Score,0.62
+Budget (Millions USD),-0.139
+Director Quality,0.932
+Top 3 Actor Social Media Score,0.012
