@@ -114,24 +114,28 @@ results_df.to_csv(base_path + 'rf_results.csv',index=False)
 params_df.to_csv(base_path + 'rf_params.csv',index=False)
 feature_importances_df.to_csv(base_path + 'rf_feature_importances.csv', index=False)
 
+# Fitting 3 folds for each of 12 candidates, totalling 36 fits
+
 # Best Hyperparameters:
 # max_depth: 10
 # min_samples_split: 5
 # n_estimators: 100
-#
-# Best Model Performance (Grid Search, 3-Fold CV):
-# Average MSE (CV): 0.237
-# Average RMSE (CV): 0.487
-#
-# Final Model Performance (80/20 Split):
-# R² Score: 0.909
-# MSE: 0.230
-# RMSE: 0.480
-#
+
+# Best Model Performance:
+# Average MSE: 0.254
+# Average RMSE: 0.504
+
+# R² Score: 0.905
+# MSE: 0.240
+# RMSE: 0.490
+
+
 # Feature Importances:
-#               Feature  Importance
-#           Genre Score    0.002826
-#        Writer Quality    0.112024
-#           Actor Score    0.022423
-# Budget (Millions USD)    0.002805
-#      Director Quality    0.859922
+#                        Feature  Importance
+#                    Genre Score    0.005189
+#                 Writer Quality    0.077269
+#                    Actor Score    0.029732
+#          Budget (Millions USD)    0.004606
+#               Director Quality    0.875820
+# Top 3 Actor Social Media Score    0.007384
+# (base) terrychen@Terry-Chens-Mac-Pro New_work % 

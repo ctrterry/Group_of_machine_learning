@@ -1,23 +1,29 @@
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
-os.environ["TF_METAL_ENABLE"] = "0"
+import tensorflow as tf
+
+# Disable GPU/Metal
+tf.config.set_visible_devices([], 'GPU')
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
+from tensorflow.keras import Sequential
+from tensorflow.keras.layers import Dense, Input
+from tensorflow.keras.optimizers import SGD
+from scikeras.wrappers import KerasRegressor
+from tensorflow.keras.callbacks import EarlyStopping
 
-# Updated dataset path
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
 csv_path = '/Users/terrychen/Desktop/Group_of_machine_learning/Terry_Directory/Data/Merege_data_with_Sasha/movies_features_with_social_Metadata_with_log.csv'
 df = pd.read_csv(csv_path)
 
-# Updated features and target
-features = ['genre_score', 'movie_writer_quality', 'movie_actor_score', 'budget', 'director_quality', 'top_3_actor_scores']
+# select features and target
+features = ['genre_score', 'movie_writer_quality', 'movie_actor_score', 'budget', 'director_quality','top_3_actor_scores']
 target = 'averageRating'
 
-# Updated feature labels
+# feature labels, will be used for coefficients table/file
 feature_labels = {
     'genre_score': 'Genre Score',
     'movie_writer_quality': 'Writer Quality',
@@ -34,108 +40,82 @@ y = df[target]
 scaler = StandardScaler()
 x_scaled = scaler.fit_transform(x)
 
-# initialize RandomForest model
-model = RandomForestRegressor(random_state=42)
+def create_model(neuron_count=64, activation='relu', momentum=0.6):
+    model = Sequential()
+    model.add(Input(shape=(len(features),)))
+    model.add(Dense(neuron_count, activation=activation))
+    model.add(Dense(1))
+    optimizer = SGD(learning_rate=0.01, momentum=momentum)
+    model.compile(optimizer=optimizer, loss='mse', metrics=['mse'])
+    return model
 
-# parameters used to find the combination with highest performance
-# n_estimators -> number of trees
-# max_depth -> tree depth
+keras_model = KerasRegressor(model=create_model, activation='relu', verbose=0, momentum=0.6, neuron_count=64)
+print(keras_model.get_params().keys())
+param_grid = {
+    'neuron_count': [32, 64, 128],
+    'activation': ['tanh', 'relu'],
+    'momentum': [0.6, 0.9],
+    'batch_size': [32, 64],
+}
 
-param_grid = {'n_estimators': [100, 200],'max_depth': [10, 20, None],'min_samples_split': [2, 5]}
+early_stopping = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
 
-# initialize grid search with 3 fold cross validation
-grid = GridSearchCV(estimator=model, param_grid=param_grid, cv=3, scoring='neg_mean_squared_error', n_jobs=1, verbose=1)
+grid = GridSearchCV(estimator=keras_model, param_grid=param_grid, cv=3, scoring='neg_mean_squared_error', n_jobs=1,  verbose=0)
 
-# perform grid search
-grid_result = grid.fit(x_scaled, y)
+grid_result = grid.fit(x_scaled, y, callbacks=[early_stopping], validation_split=0.2)
 
-#extract metrics and data about the best model
+# extract best model data
 best_model = grid_result.best_estimator_
 best_params = grid_result.best_params_
 best_mse = -grid_result.best_score_
 best_rmse = np.sqrt(best_mse)
 
-# split the data 80/20
-x_train, X_test, y_train, y_test = train_test_split(x_scaled, y, test_size=0.2, random_state=42)
-best_model.fit(x_train, y_train)
-y_pred = best_model.predict(X_test)
+# split train/test data into 80/20 split (final model)
+x_train, x_test, y_train, y_test = train_test_split(x_scaled, y, test_size=0.2, random_state=42)
+
+# train the model and make predictions for movie ratings
+best_model.fit(x_train, y_train, callbacks=[early_stopping], validation_split=0.2)
+y_pred = best_model.predict(x_test)
 
 # calculate performance metrics
 r2 = r2_score(y_test, y_pred)
 mse = mean_squared_error(y_test, y_pred)
 rmse = np.sqrt(mse)
 
-
-feature_importances = pd.DataFrame({ 'Feature': [feature_labels.get(f, f) for f in features], 'Importance': best_model.feature_importances_})
-
 print("\nBest Hyperparameters:")
 for param, value in best_params.items():
     print(f"{param}: {value}")
+print("Epochs: 20 (fixed)")
+print("Learning Rate: 0.01 (fixed)")
 
 print("\nBest Model Performance:")
 print(f"Average MSE: {best_mse:.3f}")
-print(f"Average RMSE: {best_rmse:.3f}\n")
+print(f"Average RMSE: {best_rmse:.3f}")
 
+print("\nFinal Model Performance:")
 print(f"R² Score: {r2:.3f}")
 print(f"MSE: {mse:.3f}")
-print(f"RMSE: {rmse:.3f}\n")
+print(f"RMSE: {rmse:.3f}")
 
-print("\nFeature Importances:")
-print(feature_importances.to_string(index=False))
+# create a dictionary to save average and final performance metrics
+# results = {
+#     'Metric': ['Average MSE', 'Average RMSE', ' R² Score', 'MSE', 'RMSE'],
+#     'Value': [best_mse, best_rmse, r2, mse, rmse]
+# }
+# # create a dictionary with best hyperparameter combination
+# params = {'Parameter': ['Neurons', 'Activation', 'Learning Rate', 'Momentum', 'Batch Size', 'Epochs'],
+#     'Value': [best_params['neuron_count'], best_params['activation'], 0.01, best_params['momentum'], best_params['batch_size'], 20]}
 
-# create dictinoaary for metrics and parameters where values will be stored, and later exported
-results = { 'Metric': ['Average MSE ', 'Average RMSE', 'R² Score', 'MSE', 'RMSE'],'Value': [best_mse, best_rmse, r2, mse, rmse]}
-params = {'Parameter': ['n_estimators', 'max_depth', 'min_samples_split'],'Value': [best_params['n_estimators'], best_params['max_depth'], best_params['min_samples_split']]}
+# results_df = pd.DataFrame(results)
+# params_df = pd.DataFrame(params)
+# results_df['Value'] = results_df['Value'].round(3)
 
-results_df = pd.DataFrame(results)
-params_df = pd.DataFrame(params)
+# # crreate a latex table with results of the ANN models
+# latex_table = results_df.to_latex(index=False, float_format="%.3f", caption="ANN Model Performance for Predicting IMDb Ratings (2020--2025, 3-Fold Cross-Validation with Grid Search)", label="tab:ann_results", column_format='lr',header=['Metric', 'Value'], escape=True)
 
-feature_importances_df = feature_importances
-results_df['Value'] = results_df['Value'].round(3)
-feature_importances_df['Importance'] = feature_importances_df['Importance'].round(3)
+# with open('/actors/ann/ann_results.tex', 'w') as f:
+#     f.write(latex_table)
 
-# Output paths
-base_path = '/Users/terrychen/Desktop/Group_of_machine_learning/Terry_Directory/Data/Merege_data_with_Sasha/'
-
-# create a latex table for feature imetrics
-ltx_results = results_df.to_latex(index=False,float_format="%.3f",caption="Random Forest Model Performance for Predicting IMDb Ratings (2020--2025, 3-Fold Cross-Validation with Grid Search)",label="tab:rf_results",column_format='lr',header=['Metric', 'Value'],escape=True)
-
-# create a latex table for feature importances
-ltx_importances = feature_importances_df.to_latex(index=False,float_format="%.3f",caption="Feature Importances for Random Forest Model Predicting IMDb Ratings (2020--2025)",label="tab:rf_feature_importances",column_format='lr',header=['Feature', 'Importance'],escape=True)
-
-# save latex tables for metrics and feature importances
-with open(base_path + 'rf_results.tex', 'w') as f:
-    f.write(ltx_results)
-with open(base_path + 'rf_feature_importances.tex', 'w') as f:
-    f.write(ltx_importances)
-
-# save model metrics, parameters and features importances into respective CSV files
-results_df.to_csv(base_path + 'rf_results.csv',index=False)
-params_df.to_csv(base_path + 'rf_params.csv',index=False)
-feature_importances_df.to_csv(base_path + 'rf_feature_importances.csv', index=False)
-
-# Fitting 3 folds for each of 12 candidates, totalling 36 fits
-
-# Best Hyperparameters:
-# max_depth: 10
-# min_samples_split: 5
-# n_estimators: 100
-
-# Best Model Performance:
-# Average MSE: 0.254
-# Average RMSE: 0.504
-
-# R² Score: 0.905
-# MSE: 0.240
-# RMSE: 0.490
-
-
-# Feature Importances:
-#                        Feature  Importance
-#                    Genre Score    0.005189
-#                 Writer Quality    0.077269
-#                    Actor Score    0.029732
-#          Budget (Millions USD)    0.004606
-#               Director Quality    0.875820
-# Top 3 Actor Social Media Score    0.007384
-# (base) terrychen@Terry-Chens-Mac-Pro New_work % 
+# # save results and params as CSV file for later use
+# results_df.to_csv( 'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/ann_results.csv',index=False)
+# params_df.to_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/ann_params.csv',index=False)

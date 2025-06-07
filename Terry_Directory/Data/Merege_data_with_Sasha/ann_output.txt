@@ -1,0 +1,121 @@
+(tf311) PS C:\Users\luoya\Desktop\ECS 171> py ann2.py
+2025-06-04 01:57:41.847893: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-06-04 01:57:42.636692: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-06-04 01:57:44.584757: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 839us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 785us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 816us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 819us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 762us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 810us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 803us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 774us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 748us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 808us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 806us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 816us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 782us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 776us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 792us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 793us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 778us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 750us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 788us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 797us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 749us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 769us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 820us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 786us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 783us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 721us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 821us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 765us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 772us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 806us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 712us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 765us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 817us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 777us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 751us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 818us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 810us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 732us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 793us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 784us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 748us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 730us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 793us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 753us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 769us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 830us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 806us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 769us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 815us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 788us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 774us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 817us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 736us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 829us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 755us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 730us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 765us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 793us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 832us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 757us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 724us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 824us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 741us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 787us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 795us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 812us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 827us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 831us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 786us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 760us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 776us/step
+53/53 ━━━━━━━━━━━━━━━━━━━━ 0s 770us/step
+
+### 3-Fold CV results (sorted by mean MSE)
+
+|   neurons | activation   |   momentum |   batch_size |   mean_MSE |   std_MSE |   mean_RMSE |
+|----------:|:-------------|-----------:|-------------:|-----------:|----------:|------------:|
+|        64 | relu         |      0.900 |           32 |      0.258 |     0.008 |       0.508 |
+|       128 | relu         |      0.900 |           32 |      0.259 |     0.005 |       0.509 |
+|        64 | relu         |      0.900 |           64 |      0.259 |     0.007 |       0.509 |
+|       128 | relu         |      0.900 |           64 |      0.260 |     0.008 |       0.510 |
+|        32 | tanh         |      0.900 |           32 |      0.260 |     0.007 |       0.510 |
+|        32 | relu         |      0.900 |           32 |      0.261 |     0.007 |       0.511 |
+|       128 | relu         |      0.600 |           32 |      0.265 |     0.007 |       0.515 |
+|        32 | relu         |      0.900 |           64 |      0.265 |     0.009 |       0.515 |
+|        32 | tanh         |      0.900 |           64 |      0.267 |     0.006 |       0.516 |
+|        64 | relu         |      0.600 |           32 |      0.268 |     0.004 |       0.518 |
+|        32 | relu         |      0.600 |           32 |      0.270 |     0.007 |       0.519 |
+|       128 | relu         |      0.600 |           64 |      0.271 |     0.006 |       0.520 |
+|        64 | relu         |      0.600 |           64 |      0.272 |     0.004 |       0.522 |
+|        32 | relu         |      0.600 |           64 |      0.273 |     0.006 |       0.522 |
+|        64 | tanh         |      0.900 |           64 |      0.274 |     0.008 |       0.523 |
+|        64 | tanh         |      0.900 |           32 |      0.275 |     0.005 |       0.524 |
+|       128 | tanh         |      0.900 |           32 |      0.275 |     0.016 |       0.525 |
+|       128 | tanh         |      0.900 |           64 |      0.292 |     0.010 |       0.541 |
+|        32 | tanh         |      0.600 |           32 |      0.296 |     0.003 |       0.544 |
+|        64 | tanh         |      0.600 |           32 |      0.303 |     0.010 |       0.551 |
+|       128 | tanh         |      0.600 |           32 |      0.307 |     0.007 |       0.554 |
+|        32 | tanh         |      0.600 |           64 |      0.309 |     0.006 |       0.556 |
+|        64 | tanh         |      0.600 |           64 |      0.311 |     0.005 |       0.558 |
+|       128 | tanh         |      0.600 |           64 |      0.313 |     0.006 |       0.559 |
+
+**Best hyperparameters (by 3-fold CV)**
+  neurons:    64
+  activation: relu
+  momentum:   0.9
+  batch_size: 32
+  → CV MSE  = 0.258
+  → CV RMSE = 0.508
+32/32 ━━━━━━━━━━━━━━━━━━━━ 0s 1ms/step 
+
+### Final hold-out performance (80/20 split)
+
+  R²   = 0.899
+  MSE  = 0.254
+  RMSE = 0.504
