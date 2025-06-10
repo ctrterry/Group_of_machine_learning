@@ -6,11 +6,10 @@ from sklearn.model_selection import KFold
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error, r2_score
 
-
-df = pd.read_csv('/actors/movies_features.csv')
+df = pd.read_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/Sasha_Directory/actors/movies_features.csv')
 
 # select features and target
-features = ['genre_score', 'movie_writer_quality', 'movie_actor_score', 'budget', 'director_quality']
+features = ['genre_score', 'movie_writer_quality', 'movie_actor_score', 'budget_imputed', 'director_quality']
 target = 'averageRating'
 
 # feature labels, will be used for coefficients table/file
@@ -94,5 +93,5 @@ results = {
 }
 results_df = pd.DataFrame(results)
 results_df['Value'] = results_df['Value'].round(3)
-results_df.to_csv(   'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/linear_regression_results.csv',index=False)
-coeff_df.to_csv( 'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/linear_regression_coeffs.csv',index=False)
+results_df.to_csv(   'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/Sasha_Directory/actors/actors_feature/linear_regression_results.csv',index=False)
+coeff_df.to_csv( 'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/Sasha_Directory/actors/actors_feature/actors/linear_regression_coeffs.csv',index=False)

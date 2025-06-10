@@ -110,9 +110,9 @@ with open('/actors/random_forest/rf_feature_importances.tex', 'w') as f:
     f.write(ltx_importances)
 
 # save model metrics, parameters and features importances into respective CSV files
-results_df.to_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/rf_results.csv',index=False)
-params_df.to_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/rf_params.csv',index=False)
-feature_importances_df.to_csv(  'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/rf_feature_importances.csv', index=False)
+results_df.to_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/Sasha_Directory/actors/rf_results.csv',index=False)
+params_df.to_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/Sasha_Directory/actors/rf_params.csv',index=False)
+feature_importances_df.to_csv(  'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/Sasha_Directory/actors/rf_feature_importances.csv', index=False)
 
 # Best Hyperparameters:
 # max_depth: 10

@@ -12,10 +12,10 @@ from keras.src.callbacks import EarlyStopping
 
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
-df = pd.read_csv('/actors/movies_features.csv')
+df = pd.read_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/Sasha_Directory/actors/movies_features.csv')
 
 # select features and target
-features = ['genre_score', 'movie_writer_quality', 'movie_actor_score', 'budget', 'director_quality']
+features = ['genre_score', 'movie_writer_quality', 'movie_actor_score', 'budget_imputed', 'director_quality']
 target = 'averageRating'
 
 # feature labels, will be used for coefficients table/file
@@ -23,7 +23,7 @@ feature_labels = {
     'genre_score': 'Genre Score',
     'movie_writer_quality': 'Writer Quality',
     'movie_actor_score': 'Actor Score',
-    'budget': 'Budget (Millions USD)',
+    'budget_imputed': 'Budget (Millions USD)',
     'director_quality': 'Director Quality'
 }
 
@@ -53,12 +53,39 @@ param_grid = {
 }
 
 early_stopping = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
-
 grid = GridSearchCV(estimator=keras_model, param_grid=param_grid, cv=3, scoring='neg_mean_squared_error', n_jobs=1,  verbose=0)
-
 grid_result = grid.fit(x_scaled, y, callbacks=[early_stopping], validation_split=0.2)
 
-# extract best model data
+# extras cv results for computing averages per hyperparameter value
+cv_results = pd.DataFrame(grid_result.cv_results_)
+cv_results['mean_test_mse'] = -cv_results['mean_test_score']
+cv_results['mean_test_rmse'] = np.sqrt(cv_results['mean_test_mse'])
+cv_results['std_test_mse'] = cv_results['std_test_score']
+cv_results['std_test_rmse'] = cv_results['std_test_mse'] / (2 * cv_results['mean_test_rmse'])
+
+hyperparameters = ['activation', 'momentum', 'neuron_count', 'batch_size']
+performance_data = []
+
+# group performance metrics for each hyperparameter (and their values)
+for param in hyperparameters:
+    param_key = f'param_{param}'
+    grouped = cv_results.groupby(param_key).agg({
+        'mean_test_mse': ['mean', 'std'],
+        'mean_test_rmse': ['mean', 'std'],
+    }).reset_index()
+    grouped.columns = ['value', 'avg_mse', 'std_mse', 'avg_rmse', 'std_rmse']
+    grouped['hyperparameter'] = param
+    performance_data.append(grouped[['hyperparameter', 'value', 'avg_mse', 'std_mse', 'avg_rmse', 'std_rmse']])
+
+hyperparameter_performance = pd.concat(performance_data, ignore_index=True)
+hyperparameter_performance = hyperparameter_performance.round(3)
+
+hyperparameter_performance = hyperparameter_performance[['hyperparameter', 'value', 'avg_mse', 'std_mse', 'avg_rmse', 'std_rmse']]
+
+# print(hyperparameter_performance)
+
+hyperparameter_performance.to_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/Sasha_Directory/actors/ann/ann_hyperparameter_results.csv', index=False)
+# # extract best model data
 best_model = grid_result.best_estimator_
 best_params = grid_result.best_params_
 best_mse = -grid_result.best_score_
@@ -111,5 +138,5 @@ with open('/actors/ann/ann_results.tex', 'w') as f:
     f.write(latex_table)
 
 # save results and params as CSV file for later use
-results_df.to_csv( 'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/ann_results.csv',index=False)
-params_df.to_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/ann_params.csv',index=False)
+results_df.to_csv( 'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/Sasha_Directory/actors/ann/ann_results.csv',index=False)
+params_df.to_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/Sasha_Directory/actors/ann/ann_params.csv',index=False)

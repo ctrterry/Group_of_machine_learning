@@ -42,6 +42,8 @@ SELECT *
 FROM read_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/PROJECT/data/title.basics.tsv', delim='\t', header=True, nullstr='\N', columns={'tconst': 'STRING', 'titleType': 'STRING', 'primaryTitle': 'STRING', 'originalTitle': 'STRING', 'isAdult': 'INTEGER', 'startYear': 'INTEGER', 'endYear': 'INTEGER', 'runtimeMinutes': 'INTEGER', 'genres': 'STRING'});
 ```
 
+
+
 ```
 CREATE TABLE IF NOT EXISTS title_akas (
     titleId STRING,
@@ -70,12 +72,13 @@ CREATE TABLE IF NOT EXISTS title_episode (
 );
 ```
 
-```
+```sql
 INSERT INTO title_episode
 SELECT *
 FROM read_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/PROJECT/data/title.episode.tsv', delim='\t', header=True, nullstr='\N', columns={'tconst': 'STRING', 'parentTconst': 'STRING', 'seasonNumber': 'INTEGER', 'episodeNumber': 'INTEGER'});
 ```
-```CREATE TABLE IF NOT EXISTS title_episode (
+```sql
+CREATE TABLE IF NOT EXISTS title_episode (
     tconst STRING,
     parentTconst STRING,
     seasonNumber INTEGER,
@@ -83,13 +86,13 @@ FROM read_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Dav
 );
 ```
 
-```
+```sql
 INSERT INTO title_episode
 SELECT *
 FROM read_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/PROJECT/data/title.episode.tsv', delim='\t', header=True, nullstr='\N', columns={'tconst': 'STRING', 'parentTconst': 'STRING', 'seasonNumber': 'INTEGER', 'episodeNumber': 'INTEGER'});
 ```
 
-```
+```sql
 CREATE TABLE IF NOT EXISTS title_principals (
     tconst STRING,
     ordering INTEGER,
@@ -202,4 +205,33 @@ LEFT JOIN movies_with_movie_writer_quality mw ON rm.tconst = mw.tconst
 LEFT JOIN movies_with_actor_scores ma ON rm.tconst = ma.tconst
 LEFT JOIN movies_with_budgets mb ON rm.tconst = mb.tconst
 LEFT JOIN movies_with_director_quality md ON rm.tconst = md.tconst;
+```
+
+## EXPORT  MOVIES FEATURES
+```sql
+COPY movies_features TO 'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/movies_features.csv' (HEADER, DELIMITER ',');  
+```
+
+
+# NOT USED
+## ACTOR POPULARITY/FACEBOOK LIKES 
+```sql
+CREATE TABLE imdb_names (
+    nconst VARCHAR,
+    primaryName VARCHAR
+);
+```
+```sql
+INSERT INTO actors
+SELECT * FROM read_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/Sasha_Directory/actors/unique_actors_facebook_likes.csv', AUTO_DETECT=TRUE);
+```
+
+```sql
+UPDATE actors
+SET actor_id = name_basics.nconst
+FROM name_basics
+WHERE LOWER(actors.actor_name) = LOWER(name_basics.primaryName);
+```
+```sql
+COPY actors TO 'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/Sasha_Directory/actors/actors_export.csv' (DELIMITER ',', HEADER TRUE);
 ```

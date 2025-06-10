@@ -259,7 +259,7 @@ COPY movie_actor_features_2020_2025_top_5_7 TO 'C:/Users/sasaa/OneDrive/Document
 - R^2 Score: 0.7283
 
 ## IMPORT actor_scores TO CREATE movies_with_actor_scores
-```commandline
+```sql
 CREATE TABLE actor_scores AS
 SELECT 
     actor AS nconst,
@@ -290,7 +290,3 @@ GROUP BY m.tconst, m.primaryTitle, m.startYear, m.averageRating, m.numVotes;
 ```
 ![img_3.png](../img_3.png)
 
-## EXPORT  MOVIES FEATURES
-```sql
-COPY movies_features TO 'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/movies_features.csv' (HEADER, DELIMITER ',');  
-```

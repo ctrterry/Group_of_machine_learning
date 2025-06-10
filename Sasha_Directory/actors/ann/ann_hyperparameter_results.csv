@@ -1,0 +1,10 @@
+hyperparameter,value,avg_mse,std_mse,avg_rmse,std_rmse
+activation,relu,0.291,0.01,0.539,0.01
+activation,tanh,0.334,0.019,0.577,0.016
+momentum,0.6,0.323,0.025,0.568,0.022
+momentum,0.9,0.301,0.024,0.548,0.021
+neuron_count,32,0.309,0.026,0.555,0.023
+neuron_count,64,0.311,0.028,0.558,0.025
+neuron_count,128,0.316,0.029,0.562,0.026
+batch_size,32,0.307,0.024,0.554,0.022
+batch_size,64,0.317,0.029,0.563,0.025

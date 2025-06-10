@@ -37,7 +37,7 @@ x_scaled = scaler.transform(x)
 df['director_score'] = model.predict(x_scaled)
 
 # export results to CSV
-df[['tconst', 'director_id', 'director_score']].to_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/director_scores_output.csv', index=False)
+df[['tconst', 'director_id', 'director_score']].to_csv('/actors/directors_features/director_scores_output.csv', index=False)
 
 # print final coefficients for the model
 for feature, coef in zip(features, model.coef_):

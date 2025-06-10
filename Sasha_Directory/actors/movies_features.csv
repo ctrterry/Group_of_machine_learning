@@ -1,4 +1,4 @@
-tconst,primaryTitle,startYear,averageRating,numVotes,genre_score,movie_writer_quality,movie_actor_score,budget,director_quality
+tconst,primaryTitle,startYear,averageRating,numVotes,genre_score,movie_writer_quality,movie_actor_score,budget_imputed,director_quality
 tt20235592,Six: The Fully Animated Musical,2020,6.8,16,6.246229143988683,7.700000286102295,8.912113350831817,45110614.14841664,6.920000171661377
 tt20236042,Dormitory,2023,6.8,892,6.222950643159742,6.800000190734863,7.05851604051225,22449168.97011252,6.800000190734863
 tt20236622,The Deb,2024,7.5,72,6.023743117917954,7.416666666666667,7.896714646626239,22203336.37847586,7.5

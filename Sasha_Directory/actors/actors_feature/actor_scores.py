@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df_movies = pd.read_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/PROJECT/movie_actor_features_2020_2025_top_5_7.csv')
+df_movies = pd.read_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/Sasha_Directory/actors/actors_features/movie_actor_features_2020_2025_top_5_7.csv')
 
 X = df_movies[['cast_avg_movie_rating', 'cast_avg_votes_per_movie', 'cast_avg_total_movies',
               'cast_avg_rating_std_dev', 'cast_avg_high_rated_movie_count', 'cast_avg_career_span',
@@ -64,11 +64,10 @@ plt.title('Distribution of Residuals (2020–2025, Top 7 Actors)')
 plt.show()
 
 
-# Normalize the entire dataset
 X_scaled = scaler.fit_transform(X)
 model = Ridge(alpha=1.0)
 
-# 5-fold cross validation
+# 5fold cross validation
 kf = KFold(n_splits=5, shuffle=True, random_state=42)
 mse_scores = cross_val_score(model, X_scaled, y, cv=kf, scoring='neg_mean_squared_error')
 rmse_scores = np.sqrt(-mse_scores)
@@ -81,8 +80,8 @@ print(f"Mean RMSE: {np.mean(rmse_scores):.4f} (±{np.std(rmse_scores):.4f})")
 print(f"Mean MAE: {-np.mean(mae_scores):.4f} (±{np.std(mae_scores):.4f})")
 print(f"Mean R²: {np.mean(r2_scores):.4f} (±{np.std(r2_scores):.4f})")
 
-# Load the actor-level dataset
-df_actors = pd.read_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/PROJECT/data/actor_scores.csv')
+# load the actor-level dataset
+df_actors = pd.read_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/Sasha_Directory/actors/actors_features/actor_scores.csv')
 
 actor_features = df_actors[['avg_movie_rating', 'avg_votes_per_movie', 'total_movies',
                            'rating_std_dev', 'high_rated_movie_count', 'career_span',
@@ -103,6 +102,6 @@ if min_score < 0:
     df_actors['actor_score'] = df_actors['actor_score'] - min_score
 
 # save to a CSV file
-df_actors.to_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/PROJECT/actor_scores_and_features.csv', index=False)
+df_actors.to_csv('C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/Sasha_Directory/actors/actors_features/actor_scores_and_features.csv', index=False)
 
 

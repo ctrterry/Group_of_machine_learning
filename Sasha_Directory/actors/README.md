@@ -1,0 +1,169 @@
+# README file by Sasa Antunovic
+- This file describes in detail the full structure of our project, which is located within this folder.
+- My implementation and code focused on the EXP feature set which is the `movies_features.csv`
+- For each individual feature there is designated folder (e.g. actors_feature)
+- For each model implemented there is designated folder (e.g. ann)
+- The creation,imputation,cleaning of EXP dataset was achieved mostly by using DuckDB (SQL), and also with Python
+- The process for creating `movies_features.csv` was very complex. I have kept track of all (or almost all) SQL queries used in order to be able to reproduce the results. For those with desire and time to test this process follow next steps:
+  - Install duckdb from https://duckdb.org/
+  - (to start from very beginning) 
+    - download raw data from https://developer.imdb.com/non-commercial-datasets/ (not on GitHub due to 2GB data size)
+      - Open `db.md` and execute querries in order up to MOVIES FEATURES TABLE
+      - For `actors_feature/actors.md` run all queries in order
+      - For `directors_feature/directors.md` run all queries in order
+      - For `writers_feature/writers.md` run all queries in order
+      - For `fenre_feature/genre.md` run all queries in order
+      - For `budget_feature/feature.md` run all queries in order
+      - Return to `db.md`, continue running queries after MOVIES FEATURES TABLE until NOT USED
+      - There should be `movie_features.csv` file produced which is the EXP dataset
+## Features
+- **Movie Actor Score:** `./actors_feature`
+  - **Python Code:**
+    - `actor_per_career_span.py`
+      - loads `actor_scores_updated.csv`, creates a histogram of number of actors per career span (5 year intervals), in the research paper under Actor Score vs. IMDb movie rating (feature Engineering)
+    - `actor_scores.py`
+      - Loads `movie_actor_features_2020_2025_top_5_7.csv`, trains Ridge Reg model, outputs `actor_scores_and_features.csv`
+    - `actor_scores_impute_missing.py`
+      - loads `actor_scores_filtered.csv`, imputes missing values, outputs, `actor_scores.csv`
+    - `actor_scores_missing_data.py`
+      - Loads `actor_scores_filtered.csv`, prints missing values for each column
+    - `actors_per_movie_count.py`
+      - loads `actor_scores_updated.csv`, creates a plot of number of actors per movie (not used in research paper)
+  - **Output files**
+    - `actor_scores.csv`
+      - All actors and features used in training Ridge Regression model 
+    - `actor_scores_and_features.csv`
+      - Same data as `actor_score.csv`, with added column 'actor_score' for each actor (from Ridge Regression) 
+    - `movie_actor_features_2020_2025_top_5_7.csv`
+      -  Movies with cummulative actor scores for up to 7 actors for a movie
+  - **Database Queries**
+    - `actors.md`
+      - List of queries used in duckdb (SQL) to import, export, clean, impute data 
+- **Budget** `./budget_feature`
+  - **Raw data from Kaggle**
+    - `merge_test.csv`
+    - `merge_train.csv`
+  - **Output files**
+    - `genre_budgets.csv`
+      - Average budget per genre, based on Kaggle Dataset
+    - `movies_with_budgets.csv`
+      - One-hot-encoded genres for movies from Kaggle
+  - **Database Querries**
+    - `budget.md` 
+      - List of queries used in duckdb (SQL) to import, export, clean, impute data 
+- **Movie Director Quality:** `./directors_feature`
+  - **Python Code:**
+    - `director_scores.py`
+      - Trains Ridge Regresion on 3 director feautures from `director_regression_data.csv`, mentioned in feature engineering, (results not used in final datasets), outputs `director_scores_ouput.csv`
+    - `director_scores_2.py`
+      - same as `director_scores.py`, but just using director quality only, outputs `director_scores_2_output.csv`
+  - **Output Files:**
+    - `director_scores_2_output.csv`
+      - Director scores from Ridge Regression using only director_quality
+   - `director_scores_output.csv`
+     - Director scores from Ridge Regression using 3 features, MISSING but will be created if you run `director_scores.py`
+  - **Database Querries:**
+    - `directors.md`
+      - List of queries used in duckdb (SQL) to import, export, clean, impute data 
+- **Genre Score** `./genre_feature`
+  - **Python Code**
+    - `genre.py` (EMPTY)
+  - **Output Files**
+    - `genre_scores.csv`
+      - Avg. movie rating per genre, imported from DuckDB
+  - **Database Queries**
+    - `genre.md`
+      - List of queries used in duckdb (SQL) to import, export, clean, impute data 
+- **Movie Writer Quality** ./writers_feature
+  - **Python Code**
+    - `writer_scores.py`
+      - Uses `writer_regression_data.csv`, outputs Director scores from Ridge Regression using 2 features, output `writer_scores_output.csv`, mentioned in Feauture Enginering, results not used in final dataset 
+  - **Output Files;**
+    - `writer_quality.csv`
+      - Writer quality per writer, imported from DuckDB
+    - `writer_regression_data.csv`
+      - Data with features used to train Ridge Regression
+    - `writer_scores_output.csv`
+      - Output of Ridge Regression
+  - **Database Queries:**
+    - `writers.md`
+      - List of queries used in duckdb (SQL) to import, export, clean, impute data 
+## Exploratory Data Analysis
+- **Python Code**
+  - `feature_to_feature_corr.py`
+    - Feature to feature corr ananlysis from the POP dataset, used in Research Paper EDA Feature-to-Feature Correlation Analysis
+  - `movie_features_clean.py`
+    - Loaded the initial `movies_features.csv` (EXP), droped data points with missing data, mentioned in RP Data Cleaning Section, outputs new `movies_features.csv`
+  - `movie_features_corr.py`
+    - feature to imdb rating corr analysis (POP), outputs `feature_corr_bar_chart2.png`, used in Research Paper EDA Features vs. IMDb Movie Rating Correlation Analysis, outputs `features_correlations2.csv`
+  - `movie_features_outliers.py`
+    - loads `movies_features.csv`, Outlier analysis for EXP dataset
+  - `movies_feautures_outliers_summary.py`
+    - Same as `movie_features_outliers.py`, also ouptuts the file `features_outliers_summary.csv`
+  - `movies_features_popularity_outliers.py`
+    - Same as `movies_feautures_outliers_summary.py`, but just for movie_actor_popularity and budget, adds output to `features_outliers_summary.csv`
+  - `actor_popularity.py`
+    - Loaded `Terry_Directory/Data/social_metadata/raw_socialMedian_Metadata.csv` and created a file with individual actors and their FB likes `unique_actors_facebook_likes.csv`
+  - `movie_features_stats.py` (**NOT USED**)
+    - Loads `movies_features.csv` (EXP), outputs statistics Min, Max, Q1... as `movies_features_stats.csv` (NOT USED in Research Paper)
+  - `movies_features_popularity_correlation.py` **NOT USED**
+    - Like `movie_features_corr.py` but just for movie_actor_popularity and budget, 
+  - `actor_score_popularity_corr.py` **NOT USED**
+    - Corr analysis of individual actor scores vs. popularity (not used in Research Paper)
+- **Output Files**
+  - `unique_actors_facebook_likes.csv`
+    - Individual Actors and facebook likes
+  - `movie_features.csv` (**EXP Dataset**)
+    - Dataset with all features used in training on EXP dataset
+  - `features_outliers_summary.csv`
+    - Basis statistics for all features (EXP + POP)
+  - `feature_correlations2.csv`
+    - Correlations of all features to IMDb movie Rating
+  - `feature_corr_bar_char.png` or `feature_corr_bar_chart2.png`
+    - used in EDA Feature to IMDb Rating corr analysis
+  - `feature_correlations.csv` **NOT USED**
+  - `movie_features_stats.csv` **NOT USED**
+  - `unique_actors_facebook_likes.csv` **NOT USED**
+  - `unique_actors_popularity.csv` **NOT USED**
+  - `rating_feature_corr_bar_plot.png` **NOT USED**
+## ML Models 
+- **Linear Regression** `./linear_regression`
+  - **Python Code**
+    - `linear_regression.py`
+      - Implementation of the linear regression model trained on `movies_features.csv` (EXP dataset), outputs `linear_regression_coeffs.csv` and `linear_regression_results.csv`, used in model evaluation for EXP
+  - **Output**
+    - `linear_regression_coeffs.csv`
+      - Feature weights result from LR training
+    - `linear_regression_results.csv`
+      - Performance metrcis for LR training
+- **ANN** `./ann`
+  - **Python Code**
+    - `ann.py`
+      - Implementation of ANN model on `movies_features.csv` (EXP), outputs `ann_results.csv`, `ann_params.csv` and `ann_hyperparameter_results.csv` 
+  - **Output Files**
+    - `ann_params.csv`
+      - Best hyperparameters
+    - `ann_results.csv`
+      - Performance metrics
+    - `ann_hyperparameter_results.csv`
+      - Deeper hyperparameter performance analysis
+- **Random Forest** `./random_forest`
+  - Python code
+    - `random_forest.py`
+      - Implementation of RF model on `movies_features.csv` (EXP), outputs `rf_results.csv`, `rf_params.csv` and `rf_feature_importances.csv`
+  - **Output Files**
+    - `rf_params.csv`
+      - Best hyperparameters
+    - `rf_results.csv`
+      - Performance metrics
+    - `rf_feature_importances.csv`
+      - Feature importances result of trianing
+## Model Comparison
+- **Python Code**
+  - `model_comparison_plot.py`
+    - Creates a bargraph of performance metrics for all 3 models, outputs `model_comparison_metrics.csv` and `model_copmarison_bar_plot.png`
+- **Output files**
+  - `model_comparison_metrics.csv`
+    - Performance metrics for all three files
+  - `model_copmarison_bar_plot.png`
+    - This version not used in RP, but similar version with different styling implemented by Terry and used in RP

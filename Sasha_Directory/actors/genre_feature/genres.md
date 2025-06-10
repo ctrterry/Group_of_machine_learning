@@ -74,3 +74,8 @@ FROM movies m;
 ```sql
 COPY writer_scores_temp TO 'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/actors/writer_quality.csv' (HEADER, DELIMITER ','); 
 ```
+
+# EXPORT GENRE AVERAGE BUDGETS
+```sql
+COPY genre_avg_budgets  TO 'C:/Users/sasaa/OneDrive/Documents/GOLANG/src/MyVault/NOTES/UC-Davis/S25/ECS171/project_imdb_rating/Group_of_machine_learning/Sasha_Directory/actors/budget_feature/genres_avg_budget.csv' (HEADER, DELIMITER ','); 
+```
