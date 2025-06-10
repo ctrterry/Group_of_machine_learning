@@ -16,6 +16,7 @@
       - For `budget_feature/feature.md` run all queries in order
       - Return to `db.md`, continue running queries after MOVIES FEATURES TABLE until NOT USED
       - There should be `movie_features.csv` file produced which is the EXP dataset
+- Following is breakdown of all files and directories used in our project (related to EXP dataset)
 ## Features
 - **Movie Actor Score:** `./actors_feature`
   - **Python Code:**
