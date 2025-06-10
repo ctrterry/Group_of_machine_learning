@@ -1,5 +1,23 @@
 # Group Study of Machine Learning
 
+
+
+1, How to run the flask
+cd "Yanming_Directory/imdb_flask_app"
+python app.py
+
+2, How to run with IMDB data as ANN, Random Forest, and Linear Regression
+cd "Sasha_Directory/actors/ann"
+python ann.py
+
+
+3, Run with IMDB + social Data as ANN, Random Forest, and Linear Regression
+cd "Terry_Directory/New_work"
+python ann.py
+
+
+
+
 ## Research Analysis Paper
 
 [My Reseach Analysis Paper IEEE Version](./terry_report/main.pdf)
