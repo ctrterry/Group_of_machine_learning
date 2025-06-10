@@ -15,6 +15,7 @@ python ann.py
 cd "Terry_Directory/New_work"
 python ann.py
 
+4. Detailed breakdown of the project structure, and explanation of all the files used/created related to EXP dataset, check ./Sasha_Directory/actors/README.md
 
 
 
